@@ -1,1 +1,1 @@
-# Kekstagram HTML Academy project
+# code & magick HTML Academy project
