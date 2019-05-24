@@ -2,34 +2,54 @@
 
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
-var WIZARD_NAMES = ['Иван','Хуан Себастьян','Мария','Кристоф','Виктор','Юлия','Люпита','Вашингтон'];
-var WIZARD_FEMALES = ['да Марья','Верон','Мирабелла','Вальц','Онопко','Топольницкая','Нионго','Ирвинг'];
-var COAT_COLORS = ['rgb(101, 137, 164)','rgb(241, 43, 107)','rgb(146, 100, 161)','rgb(56, 159, 117)','rgb(215, 210, 55)','rgb(0, 0, 0)'];
-var EYES_COLORS = ['black','red','blue','yellow','green'];
+var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+var WIZARD_FEMALES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var similarListElement = document.querySelector('.setup-similar-list');
 var setupOpenElement = document.querySelector('.setup-open');
 var setupCloseElement = document.querySelector('.setup-close');
 var setupElement = document.querySelector('.setup');
+var setupWizardElement = document.querySelector('.setup-wizard');
+
+setupWizardElement.querySelector('.wizard-coat').addEventListener('click',function () {
+  var coatColor = COAT_COLORS[randomSelect(COAT_COLORS.length)];
+  setupWizardElement.querySelector('.wizard-coat').style.fill = coatColor;
+  document.getElementsByName('coat-color').value = coatColor;
+});
+
+setupWizardElement.querySelector('.wizard-eyes').addEventListener('click',function () {
+  var eyesColor = EYES_COLORS[randomSelect(EYES_COLORS.length)];
+  setupWizardElement.querySelector('.wizard-eyes').style.fill = eyesColor;
+  document.getElementsByName('eyes-color').value = eyesColor;
+});
+
+document.querySelector('.setup-fireball-wrap').addEventListener('click',function () {
+  var fireballColor = FIREBALL_COLORS[randomSelect(FIREBALL_COLORS.length)];
+  document.querySelector('.setup-fireball-wrap').style.backgroundColor = fireballColor;
+  document.getElementsByName('fireball-color').value = fireballColor;
+});
 
 setupOpenElement.addEventListener('click', openPopup);
 setupOpenElement.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    openPopup;
+    openPopup();
   }
 });
 
 setupCloseElement.addEventListener('click', closePopup);
 setupCloseElement.addEventListener('keydown', function (evt) {
   if (evt.keyCode == ENTER_KEYCODE) {
-    closePopup;
+    closePopup();
   }
 });
 
 function onEscPress(evt) {
   if (evt.keyCode == ESC_KEYCODE) {
-    closePopup;
+    closePopup();
   }
 }
 
@@ -43,7 +63,7 @@ function openPopup() {
   document.addEventListener('keydown', onEscPress);
 }
 
-//--------------------------------------------------------------------
+//---------------------------------------------task_3
 var wizards = [];
 for (var i = 0; i < 4; i++) {
     wizards.push(generateWizard())
